@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+~TOMA_TO-DO~
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+~***Pseudocode***~
 
-## Available Scripts
+***App.js***
+Create state variables to store data from the firebase database
+- To-Do List
+    - The name of the task
+    - The user's estimated pomodoros for the task
+    - Whether or not it has been completed
+    - The number of pomodoros completed for each task
+- Timer
+    - the current minutes and seconds value of the timer
+    - work mode or break mode
 
-In the project directory, you can run:
+Once the app has been mounted, get the current data from the firebase component w/ useEffect
+- add an onValue event listener to update all states on load
+- error handling if the database cannot be reached
 
-### `npm start`
+***Timer Component***
+    - Get the state of the timer passed in through props
+    - Display in work mode or break mode depending on state
+    - Wait for when the user starts the timer
+    - Allow the user to pause or reset the timer
+    - If it is started:
+        - if it's in work mode, start at 25 mins and count down
+        - if it's in break mode, start at 5 mins
+    Switch between work and break mode when timer reaches 0.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Create a component to handle when a pomodoro completes
+***Pomodoro Complete Component***
+    - Alert the user
+    - If completed pomodoros = estimated pomodoros, prompt the user to mark the task as complete or add additional pomodoros
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Create a local method to handle onChange in the task input and pass it to a task component
 
-### `npm test`
+***Task Component***
+    - take the user's inputted task and update state with it
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Create a component to change To Do List state - task complete?
+    Create a component to allow deleting the task
 
-### `npm run build`
+Create a method to render the data from the database on to the page
+ - Display Timer Component
+ - Display To Do Items Component
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Render the page
+- header
+- The rendered timer
+- Form for entering to-do items
+- Instructions/explanation
+- The rendered to-do list
+- footer

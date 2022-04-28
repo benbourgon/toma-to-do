@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+// Modules
+import { useState, useEffect } from 'react';
+import { getDatabase, ref, onValue } from 'firebase/database';
+// Components
+import firebase  from "./Components/firebase.js";
+// Styling
 import './App.css';
 
 function App() {
+  const [toDoList, setToDoList] = useState([])
+  useEffect(() => {
+    // store the database info
+    const database = getDatabase(firebase);
+
+    // the database reference point
+    const dbReference = ref(database);
+
+    // listen for changes in the database
+    // and console log the values
+    onValue(dbReference, (dbResponse) => {
+      console.log(dbResponse.val());
+    })
+
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {/* {toDoList.map((toDoItem) => {
+          return (
+            <li>{toDoItem}</li>
+          )
+        })} */}
+      </ul>
     </div>
   );
 }
