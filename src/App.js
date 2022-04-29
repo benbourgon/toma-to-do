@@ -1,12 +1,17 @@
 // Modules
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 // Components
+import Header from "./Components/Header.js"
+import Footer from "./Components/Footer.js"
+import Instructions from "./Components/Instructions.js"
+import ToDoList from './Components/ToDoList.js';
 import firebase  from "./Components/Firebase.js";
+
 // Styling
 import "./styles/sass/App.scss";
 
-function App() {
+const App = () => {
   const [toDoList, setToDoList] = useState([])
   useEffect(() => {
     // store the database info
@@ -24,7 +29,7 @@ function App() {
       // store response from Firebase
       const data = dbResponse.val();
 
-      // Use a for in loop to sort through the object and print it's values
+      // Use a for in loop to sort through the object and print its values
       for(let key in data){
         newToDoList.push(data[key])
       }
@@ -34,20 +39,22 @@ function App() {
   }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="wrapper">
-          <h1 className="logo">toma_to-do</h1>
-        </div>
-      </header>
+      <Header />
       <main>
-        <ul>
-          {toDoList.map((toDoItem) => {
-            return (
-              <li>{toDoItem}</li>
-            )
-          })}
-        </ul>
+        <Instructions />
+        return (
+          <Fragment >
+            <ul>
+              {toDoList.map((toDoItem, index) => {
+                return (
+                  <ToDoList toDo={toDoItem} key={index} />
+                )
+              })}
+            </ul>
+          </Fragment>
+        )
       </main>
+      <Footer />
     </div>
   );
 }
