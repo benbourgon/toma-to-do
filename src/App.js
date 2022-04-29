@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 // Components
-import firebase  from "./Components/firebase.js";
+import firebase  from "./Components/Firebase.js";
 // Styling
-import './App.scss';
+import "./styles/sass/App.scss";
 
 function App() {
   const [toDoList, setToDoList] = useState([])
@@ -34,14 +34,20 @@ function App() {
   }, [])
   return (
     <div className="App">
-      <h1>TOMA_TO-DO</h1>
-      <ul>
-        {toDoList.map((toDoItem) => {
-          return (
-            <li>{toDoItem}</li>
-          )
-        })}
-      </ul>
+      <header className="App-header">
+        <div className="wrapper">
+          <h1 className="logo">toma_to-do</h1>
+        </div>
+      </header>
+      <main>
+        <ul>
+          {toDoList.map((toDoItem) => {
+            return (
+              <li>{toDoItem}</li>
+            )
+          })}
+        </ul>
+      </main>
     </div>
   );
 }
