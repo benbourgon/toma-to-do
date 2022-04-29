@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 // Components
 import firebase  from "./Components/firebase.js";
 // Styling
-import './App.css';
+import './App.scss';
 
 function App() {
   const [toDoList, setToDoList] = useState([])
@@ -18,18 +18,29 @@ function App() {
     // listen for changes in the database
     // and console log the values
     onValue(dbReference, (dbResponse) => {
-      console.log(dbResponse.val());
+      // Create a variable to store our new to-do list when something changes
+      const newToDoList = [];
+
+      // store response from Firebase
+      const data = dbResponse.val();
+
+      // Use a for in loop to sort through the object and print it's values
+      for(let key in data){
+        newToDoList.push(data[key])
+      }
+      setToDoList(newToDoList);
     })
 
   }, [])
   return (
     <div className="App">
+      <h1>TOMA_TO-DO</h1>
       <ul>
-        {/* {toDoList.map((toDoItem) => {
+        {toDoList.map((toDoItem) => {
           return (
             <li>{toDoItem}</li>
           )
-        })} */}
+        })}
       </ul>
     </div>
   );
