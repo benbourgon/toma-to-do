@@ -1,10 +1,21 @@
 // To Do List.js
 
 const ToDoList = (props) => {
-    const toDoItem = props.toDo;
-    const index = props.key
+    const toDos = props.list;
     return (
-        <li>{toDoItem[index]}</li>
+        <section
+            id="toDos"
+            className="toDos">
+            <div className="wrapper">
+                <ul>
+                    {toDos.map((toDo, index) => {
+                        return (
+                            <li key={index}>{toDo}</li>
+                        )
+                    })}
+                </ul>
+            </div>
+        </section>
     )
 }
 
