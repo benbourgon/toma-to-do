@@ -1,11 +1,11 @@
 // Modules
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
 // Components
 import Header from "./Components/Header.js"
 import Footer from "./Components/Footer.js"
 import Instructions from "./Components/Instructions.js"
-import ToDoList from './Components/ToDoList.js';
+import DisplayToDoList from './Components/DisplayToDoList.js';
 import ToDoInputForm from './Components/ToDoInputForm.js';
 import firebase  from "./Components/Firebase.js";
 
@@ -35,7 +35,7 @@ const App = () => {
 
       // Use a for in loop to sort through the object and print its values
       for(let key in data){
-        newToDoList.push(data[key])
+        newToDoList.push({key:key, toDo: data[key]})
       }
       setToDoList(newToDoList);
     })
@@ -44,6 +44,7 @@ const App = () => {
   const handleTaskInputChange = (event) => {
     setTaskInputValue(event.target.value)
   }
+  // Event handler to push a new to-do-item to the Firebase database on submit
   const handleSubmit = (event) => {
     // prevent the default submit behaviour
     event.preventDefault();
@@ -56,6 +57,15 @@ const App = () => {
     // Reset the state of the Task Input to an empty string.
     setTaskInputValue("")
   }
+  const handleRemoveToDo = (toDoKey) => {
+    // remove the to-do item at the specific key value determined by the DisplayToDoList component
+
+    // set the database and reference point for where to remove the to-do item
+    const database = getDatabase(firebase);
+    const dbReference = ref(database, `/${toDoKey}`)
+    // remove the to-do item specified
+    remove(dbReference);
+  }
   return (
     <div className="App">
       <Header />
@@ -64,9 +74,10 @@ const App = () => {
           handleTaskInputChange={handleTaskInputChange}
           taskInputValue={taskInputValue}
           handleSubmit={handleSubmit}
+          handleRemoveToDo={handleRemoveToDo}
         />
         <Instructions />
-        <ToDoList list={toDoList}/>
+        <DisplayToDoList list={toDoList}/>
       </main>
       <Footer />
     </div>

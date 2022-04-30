@@ -19,7 +19,7 @@ const ToDoInputForm = (props) => {
                     type="text"
                     id="taskInput" 
                     className="taskInput" 
-                    placeholder="My task to accomplish"
+                    placeholder="My task to accomplish..."
                     value={taskInputValue} 
                     required
                 />
