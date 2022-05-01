@@ -1,5 +1,8 @@
 // DisplayToDoList.js
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
+
 const DisplayToDoList = (props) => {
     console.log(props)
     const toDoList = props.list;
@@ -13,10 +16,13 @@ const DisplayToDoList = (props) => {
                     {toDoList.map((toDo) => {
                         return (
                             <li key={toDo.key}>
+                                <button aria-label="Mark To-Do Item Complete">
+                                    <FontAwesomeIcon icon={faSquare}/>
+                                </button>
                                 <p>{toDo.toDo}</p>
-                                <button 
+                                <button
                                     onClick={() => handleRemoveToDo(toDo.key)} aria-label="Remove To-Do Item">
-                                    x
+                                    <FontAwesomeIcon icon={faTrashCan}/>
                                 </button>
                             </li>
                         )
