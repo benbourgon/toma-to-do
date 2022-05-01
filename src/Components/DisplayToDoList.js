@@ -1,6 +1,7 @@
 // DisplayToDoList.js
 
 const DisplayToDoList = (props) => {
+    console.log(props)
     const toDoList = props.list;
     const handleRemoveToDo = props.handleRemoveToDo;
     return (

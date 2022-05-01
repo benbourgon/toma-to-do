@@ -74,10 +74,9 @@ const App = () => {
           handleTaskInputChange={handleTaskInputChange}
           taskInputValue={taskInputValue}
           handleSubmit={handleSubmit}
-          handleRemoveToDo={handleRemoveToDo}
         />
         <Instructions />
-        <DisplayToDoList list={toDoList}/>
+        <DisplayToDoList list={toDoList} handleRemoveToDo={handleRemoveToDo}/>
       </main>
       <Footer />
     </div>
