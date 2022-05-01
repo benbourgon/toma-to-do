@@ -14,28 +14,30 @@ import "./styles/sass/App.scss";
 
 const App = () => {
   // A state variable to hold the to-do list
-  const [toDoList, setToDoList] = useState([])
+  const [ toDoList, setToDoList ] = useState([])
   // A state variable to hold the value of the task input field
-  const [taskInputValue, setTaskInputValue] = useState("")
+  const [ taskInputValue, setTaskInputValue ] = useState("")
+  const [ tomatoesInputValue, setTomatoesInputValue ] = useState("")
+  // store the database info
+  const database = getDatabase(firebase);
+  // the database reference point
+  const dbReference = ref(database);
+  // the database reference for the tasks object
+  const dbTasksReference = ref(database, "/tasks/")
+
   useEffect(() => {
-    // store the database info
-    const database = getDatabase(firebase);
-
-    // the database reference point
-    const dbReference = ref(database);
-
     // listen for changes in the database
-    // and console log the values
     onValue(dbReference, (dbResponse) => {
       // Create a variable to store our new to-do list when something changes
       const newToDoList = [];
-
       // store response from Firebase
       const data = dbResponse.val();
-
-      // Use a for in loop to sort through the object and print its values
+      // Use a for in loop to sort through the object and push its values to a new array.
       for(let key in data){
-        newToDoList.push({key:key, toDo: data[key]})
+        // define the structure of each to-do object
+        let newToDoObject = {key:key, task: data[key], complete: false, estimatedTomatoes: 1, completedTomatoes: 0};
+        // add the object to the array
+        newToDoList.push(newToDoObject);
       }
       setToDoList(newToDoList);
     })
@@ -44,15 +46,22 @@ const App = () => {
   const handleTaskInputChange = (event) => {
     setTaskInputValue(event.target.value)
   }
+  // Event handler to set the value of the # of tomatoes select element
+  const handleTomatoesAmountChange = (event) => {
+    setTomatoesInputValue(event.target.value);
+  }
   // Event handler to push a new to-do-item to the Firebase database on submit
   const handleSubmit = (event) => {
     // prevent the default submit behaviour
     event.preventDefault();
-    // store the database and its reference point for the to-do list
-    const database = getDatabase(firebase);
-    const dbReference = ref(database);
+    const toDoObject = {
+      task: taskInputValue,
+      complete: false,
+      estimatedTomatoes: tomatoesInputValue,
+      completedTomatoes: 0
+    }
     // Use push to add the value of the TaskInput to the database at the reference point
-    push(dbReference, taskInputValue);
+    push(dbTasksReference, toDoObject);
 
     // Reset the state of the Task Input to an empty string.
     setTaskInputValue("")
@@ -60,11 +69,18 @@ const App = () => {
   const handleRemoveToDo = (toDoKey) => {
     // remove the to-do item at the specific key value determined by the DisplayToDoList component
 
-    // set the database and reference point for where to remove the to-do item
-    const database = getDatabase(firebase);
-    const dbReference = ref(database, `/${toDoKey}`)
+    // set the reference point for where to remove the to-do item
+    const dbToDoReference = ref(database, `/tasks/${toDoKey}`)
     // remove the to-do item specified
-    remove(dbReference);
+    remove(dbToDoReference);
+  }
+  const handleCompleteTask = (toDoKey) => {
+    // change the state of the checkbox for the specific to-do item
+
+    // store the database and the reference point for this specific to-do item
+    // const database =  getDatabase(firebase);
+    // const dbToDoReference = ref(database, `/${toDoKey}`)
+    // change the state of the specified to-do item
   }
   return (
     <div className="App">
@@ -72,11 +88,17 @@ const App = () => {
       <main>
         <ToDoInputForm 
           handleTaskInputChange={handleTaskInputChange}
-          taskInputValue={taskInputValue}
+          handleTomatoesAmountChange={handleTomatoesAmountChange}
           handleSubmit={handleSubmit}
+          taskInputValue={taskInputValue}
+          tomatoesInputValue={tomatoesInputValue}
         />
         <Instructions />
-        <DisplayToDoList list={toDoList} handleRemoveToDo={handleRemoveToDo}/>
+        <DisplayToDoList 
+          toDoList={toDoList}
+          handleRemoveToDo={handleRemoveToDo}
+          handleCompleteTask={handleCompleteTask}
+        />
       </main>
       <Footer />
     </div>
