@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 
 const DisplayToDoList = (props) => {
-    const { toDoList, handleCompleteTask, handleRemoveToDo } = props; 
+    const { toDoList, handleCheckboxClick, handleRemoveToDo } = props; 
     return (
         <section
             id="toDos"
@@ -18,11 +18,11 @@ const DisplayToDoList = (props) => {
                                 <input
                                     type="checkbox"
                                     name="checkbox"
-                                    id={`${toDo.task}CheckBox`}
+                                    id={`${toDo.key}CheckBox`}
                                     checked={toDo.complete}
-                                    onChange={handleCompleteTask}
+                                    onChange={() => handleCheckboxClick(toDo.key, toDo.complete)}
                                 />
-                                <label htmlFor={`${toDo.task}CheckBox`}>
+                                <label htmlFor={`${toDo.key}CheckBox`}>
                                     <FontAwesomeIcon icon={toDo.complete ? faSquareCheck : faSquare}/><span className="sr-only">Mark task complete</span>
                                 </label>
                                 <p>{toDo.task} - <span>{toDo.completedTomatoes}/{toDo.estimatedTomatoes} tomatoes</span></p>

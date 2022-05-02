@@ -16,8 +16,18 @@ ul {
 li {
     display: flex;
     width: 300px;
+    min-width: 300px;
     height: 25px;
     justify-content: space-between;
     align-items: center;    
     margin: 5px 0;
+
+    button {
+        background-color: transparent;
+        border: none;
+    }
+}
+
+input[type="checkbox"] {
+    display: none;
 }

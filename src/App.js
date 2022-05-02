@@ -1,6 +1,13 @@
 // Modules
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+import {
+        getDatabase,
+        ref, 
+        onValue, 
+        push, 
+        remove, 
+        update 
+      } from 'firebase/database';
 // Components
 import Header from "./Components/Header.js"
 import Footer from "./Components/Footer.js"
@@ -32,11 +39,11 @@ const App = () => {
       const newToDoList = [];
       // store response from Firebase
       const data = dbResponse.val();
-      console.log(data)
+      
       // Use a for in loop to sort through the object and push its values to a new array.
       for(let key in data){
         // define the structure of each to-do object
-        let newToDoObject = {key:key, task: data[key], complete: false, estimatedTomatoes: 1, completedTomatoes: 0};
+        let newToDoObject = {key:key, task: data[key].task, complete: data[key].complete, estimatedTomatoes: data[key].estimatedTomatoes, completedTomatoes: data[key].completedTomatoes};
         // add the object to the array
         newToDoList.push(newToDoObject);
       }
@@ -55,16 +62,17 @@ const App = () => {
   const handleSubmit = (event) => {
     // prevent the default submit behaviour
     event.preventDefault();
-    const toDoObject = {
-      task: taskInputValue,
-      complete: false,
-      estimatedTomatoes: tomatoesInputValue,
-      completedTomatoes: 0
+    if(taskInputValue){
+      const toDoObject = {
+        task: taskInputValue,
+        complete: false,
+        estimatedTomatoes: tomatoesInputValue,
+        completedTomatoes: 0
+      }
+      // Use push to add the toDoObject to the database at the tasks object reference point
+      push(dbTasksReference, toDoObject);
     }
-    // Use push to add the toDoObject to the database at the reference point
-    push(dbTasksReference, toDoObject);
-
-    // Reset the state of the Task Input to an empty string.
+    // Reset the state of the inputs to an empty string.
     setTaskInputValue("")
     setTomatoesInputValue("")
   }
@@ -76,13 +84,17 @@ const App = () => {
     // remove the to-do item specified
     remove(dbToDoReference);
   }
-  const handleCompleteTask = (toDoKey) => {
+  const handleCheckboxClick = (toDoKey, toDoChecked) => {
     // change the state of the checkbox for the specific to-do item
-
-    // store the database and the reference point for this specific to-do item
-    // const database =  getDatabase(firebase);
-    // const dbToDoReference = ref(database, `/${toDoKey}`)
-    // change the state of the specified to-do item
+    const dbTaskCompleteRef = ref(database, `/tasks/${toDoKey}`)
+    // create a variable to store the new setting for to-do item's completion state
+    let checkChange;
+    if(!toDoChecked){
+      checkChange = {complete: true};
+    } else {
+      checkChange = {complete: false};
+    }
+    update(dbTaskCompleteRef, checkChange)
   }
   return (
     <div className="App">
@@ -96,11 +108,11 @@ const App = () => {
           tomatoesInputValue={tomatoesInputValue}
         />
         <Instructions />
-        {/* <DisplayToDoList
+        <DisplayToDoList
           toDoList={toDoList}
           handleRemoveToDo={handleRemoveToDo}
-          handleCompleteTask={handleCompleteTask}
-        /> */}
+          handleCheckboxClick={handleCheckboxClick}
+        />
       </main>
       <Footer />
     </div>
