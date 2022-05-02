@@ -50,7 +50,7 @@ const ToDoInputForm = (props) => {
                     <option value="9">9</option>
                     <option value="10">10</option>
                 </select>
-                <p><span className="tomatoes">tomatoes</span> aka {tomatoesInputValue!== "" ? parseInt(tomatoesInputValue) * 25 : "_"} minutes</p>
+                <p><span className="tomatoes">tomatoes</span> aka {tomatoesInputValue!== "" ? parseInt(tomatoesInputValue) * 25 : "___"} minutes</p>
                 <button 
                     onClick={handleSubmit}
                     type="submit"> 

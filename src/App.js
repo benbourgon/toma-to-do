@@ -27,11 +27,12 @@ const App = () => {
 
   useEffect(() => {
     // listen for changes in the database
-    onValue(dbReference, (dbResponse) => {
+    onValue(dbTasksReference, (dbResponse) => {
       // Create a variable to store our new to-do list when something changes
       const newToDoList = [];
       // store response from Firebase
       const data = dbResponse.val();
+      console.log(data)
       // Use a for in loop to sort through the object and push its values to a new array.
       for(let key in data){
         // define the structure of each to-do object
@@ -48,7 +49,7 @@ const App = () => {
   }
   // Event handler to set the value of the # of tomatoes select element
   const handleTomatoesAmountChange = (event) => {
-    setTomatoesInputValue(event.target.value);
+    setTomatoesInputValue(event.target.value)
   }
   // Event handler to push a new to-do-item to the Firebase database on submit
   const handleSubmit = (event) => {
@@ -60,11 +61,12 @@ const App = () => {
       estimatedTomatoes: tomatoesInputValue,
       completedTomatoes: 0
     }
-    // Use push to add the value of the TaskInput to the database at the reference point
+    // Use push to add the toDoObject to the database at the reference point
     push(dbTasksReference, toDoObject);
 
     // Reset the state of the Task Input to an empty string.
     setTaskInputValue("")
+    setTomatoesInputValue("")
   }
   const handleRemoveToDo = (toDoKey) => {
     // remove the to-do item at the specific key value determined by the DisplayToDoList component
@@ -94,11 +96,11 @@ const App = () => {
           tomatoesInputValue={tomatoesInputValue}
         />
         <Instructions />
-        <DisplayToDoList 
+        {/* <DisplayToDoList
           toDoList={toDoList}
           handleRemoveToDo={handleRemoveToDo}
           handleCompleteTask={handleCompleteTask}
-        />
+        /> */}
       </main>
       <Footer />
     </div>

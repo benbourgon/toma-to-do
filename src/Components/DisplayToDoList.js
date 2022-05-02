@@ -1,5 +1,6 @@
 // DisplayToDoList.js
 
+// Modules
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 
