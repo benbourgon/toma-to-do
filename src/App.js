@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react";
 import {
         getDatabase,
-        ref, 
-        onValue, 
-        push, 
+        ref,
+        push,
+        set,
+        get,
         remove, 
         update 
       } from "firebase/database";
@@ -15,7 +16,7 @@ import Instructions from "./Components/Instructions.js"
 import DisplayToDoList from './Components/DisplayToDoList.js';
 import ToDoInputForm from './Components/ToDoInputForm.js';
 import Footer from "./Components/Footer.js"
-import firebase  from "./Components/Firebase.js";
+import firebase from "./Components/Firebase.js";
 
 // Styling
 import "./styles/sass/App.scss";
@@ -35,8 +36,8 @@ const App = () => {
   const dbTimerReference = ref(database, "/timer/")
 
   useEffect(() => {
-    // listen for changes in the database
-    onValue(dbTasksReference, (dbResponse) => {
+    // listen for changes in the tasks database
+    get(dbTasksReference).then((dbResponse) => {
       // Create a variable to store our new to-do list when something changes
       const newToDoList = [];
       // store response from Firebase
@@ -45,18 +46,33 @@ const App = () => {
       // Use a for in loop to sort through the object and push its values to a new array.
       for(let key in data){
         // define the structure of each to-do object
-        let newToDoObject = {key:key, task: data[key].task, complete: data[key].complete, estimatedTomatoes: data[key].estimatedTomatoes, completedTomatoes: data[key].completedTomatoes};
+        let newToDoObject = {
+          key:key, 
+          task: data[key].task, 
+          complete: data[key].complete, 
+          estimatedTomatoes: data[key].estimatedTomatoes, completedTomatoes: data[key].completedTomatoes
+        };
         // add the object to the array
         newToDoList.push(newToDoObject);
+      
       }
       setToDoList(newToDoList);
     })
-    onValue(dbTimerReference, (dbResponse) => {
-      // set the timer state to be the saved val
-      setTimer(dbResponse.val());
-      // Use a for in loop to sort through the object and pu
+  },[dbTasksReference])
+
+  useEffect(() => {
+
+    get(dbTimerReference).then((dbResponse) => {
+      const newTimerObj = {
+        active: dbResponse.val().active,
+        minutesRemaining: dbResponse.val().minutesRemaining,
+        mode: dbResponse.val().mode,
+        secondsRemaining: dbResponse.val().secondsRemaining,
+        totalTimeRemaining: dbResponse.val().totalTimeRemaining
+      }
+      setTimer(newTimerObj);
     })
-  },[])
+  }, [dbTimerReference])
   // Event handler to set the value of the task input field.
   const handleTaskInputChange = (event) => {
     setTaskInputValue(event.target.value)
@@ -82,8 +98,7 @@ const App = () => {
     // Reset the state of the inputs to an empty string.
     setTaskInputValue("")
     setTomatoesInputValue("")
-  }
-  // Event handler to delete a to-do item
+  }  // Event handler to delete a to-do item
   const handleRemoveToDo = (toDoKey) => {
     // remove the to-do item at the specific key value determined by the DisplayToDoList component
 
@@ -104,14 +119,33 @@ const App = () => {
     }
     update(dbTaskCompleteRef, checkChange)
   }
+  // // Event handler for when the start timer button is clicked
+  // const handleStartTimer = () => {
+  //   const changetoActive = {active: true};
+  //   update (dbTimerReference, changetoActive);
+  // }
+  // // Event handler for when the stop timer button is clicked
+  // const handleStopTimer = () => {
+  //   const changetoInactive = {active: false};
+  //   update (dbTimerReference, changetoInactive)
+  // }
+  // const handleResetTimer = () => {
+  //   const resetTimerObj = {
+  //     active: false,
+  //     minutesRemaining: 25,
+  //     mode: "work",
+  //     secondsRemaining: 0,
+  //     totalTimeRemaining: 1500
+  //   }
+  //   set(dbTimerReference, resetTimerObj);
+  // }
   return (
     <div className="App">
       <Header />
       <main>
-        <Timer 
-          timer={timer}
-          setTimer={setTimer}
-          dbTimerRef={dbTimerReference}
+        <Instructions />
+        <Timer
+        dbTimerRef={dbTimerReference}
         />
         <ToDoInputForm 
           handleTaskInputChange={handleTaskInputChange}
@@ -120,7 +154,6 @@ const App = () => {
           taskInputValue={taskInputValue}
           tomatoesInputValue={tomatoesInputValue}
         />
-        <Instructions />
         <DisplayToDoList
           toDoList={toDoList}
           handleRemoveToDo={handleRemoveToDo}

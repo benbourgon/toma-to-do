@@ -11,6 +11,7 @@ const DisplayToDoList = (props) => {
             id="toDos"
             className="toDos">
             <div className="wrapper">
+                <h2>To-Do:</h2>
                 <ul>
                     {toDoList.map((toDo) => {
                         return (
