@@ -25,12 +25,12 @@ const ToDoInputForm = (props) => {
                     type="text"
                     id="taskInput" 
                     className="taskInput" 
-                    placeholder="My task to accomplish..."
+                    placeholder="My task to accomplish"
                     value={taskInputValue} 
                     required
                 />
                 <p>in</p>
-                <label htmlFor="numberOfTomatoesSelect" className="sr-only">Estimated # of Tomatoes to Complete Task</label>
+                <label htmlFor="numberOfTomatoesSelect" className="sr-only">Estimated number of tomatoes to complete task</label>
                 <select
                     onChange={handleTomatoesAmountChange}
                     type="select"
@@ -38,7 +38,7 @@ const ToDoInputForm = (props) => {
                     className="numberOfTomatoesSelect"
                     value={tomatoesInputValue}
                 >
-                    <option value="" disabled defaultValue={""}>Estimated # of Tomatoes</option>
+                    <option value="" disabled defaultValue={""}>estimated # of tomatoes</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
