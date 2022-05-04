@@ -1,10 +1,11 @@
+// App.js
+
 // Modules
 import { useState, useEffect } from "react";
 import {
         getDatabase,
         ref,
         push,
-        set,
         get,
         remove, 
         update 
@@ -33,7 +34,7 @@ const App = () => {
   // the database reference for the tasks object
   const dbTasksReference = ref(database, "/tasks/")
   // the database reference for the timer object
-  const dbTimerReference = ref(database, "/timer/")
+  const dbTimerReference = ref(database, "/timer")
 
   useEffect(() => {
     // listen for changes in the tasks database
@@ -54,23 +55,16 @@ const App = () => {
         };
         // add the object to the array
         newToDoList.push(newToDoObject);
-      
       }
       setToDoList(newToDoList);
     })
   },[dbTasksReference])
-
+  // get the current timer details from the 
   useEffect(() => {
-
     get(dbTimerReference).then((dbResponse) => {
-      const newTimerObj = {
-        active: dbResponse.val().active,
-        minutesRemaining: dbResponse.val().minutesRemaining,
-        mode: dbResponse.val().mode,
-        secondsRemaining: dbResponse.val().secondsRemaining,
-        totalTimeRemaining: dbResponse.val().totalTimeRemaining
-      }
-      setTimer(newTimerObj);
+      // create a new object to store the timer details pulled from firebase
+      const data = dbResponse.val()
+      setTimer(data);
     })
   }, [dbTimerReference])
   // Event handler to set the value of the task input field.
@@ -85,7 +79,9 @@ const App = () => {
   const handleSubmit = (event) => {
     // prevent the default submit behaviour
     event.preventDefault();
+    // if the task is not empty
     if(taskInputValue){
+      // create a new object from the values provided
       const toDoObject = {
         task: taskInputValue,
         complete: false,
@@ -100,8 +96,7 @@ const App = () => {
     setTomatoesInputValue("")
   }  // Event handler to delete a to-do item
   const handleRemoveToDo = (toDoKey) => {
-    // remove the to-do item at the specific key value determined by the DisplayToDoList component
-
+    // remove the to-do item at the specific key value determined by the DisplayToDoList component 
     // set the reference point for where to remove the to-do item
     const dbToDoReference = ref(database, `/tasks/${toDoKey}`)
     // remove the to-do item specified
@@ -119,26 +114,6 @@ const App = () => {
     }
     update(dbTaskCompleteRef, checkChange)
   }
-  // // Event handler for when the start timer button is clicked
-  // const handleStartTimer = () => {
-  //   const changetoActive = {active: true};
-  //   update (dbTimerReference, changetoActive);
-  // }
-  // // Event handler for when the stop timer button is clicked
-  // const handleStopTimer = () => {
-  //   const changetoInactive = {active: false};
-  //   update (dbTimerReference, changetoInactive)
-  // }
-  // const handleResetTimer = () => {
-  //   const resetTimerObj = {
-  //     active: false,
-  //     minutesRemaining: 25,
-  //     mode: "work",
-  //     secondsRemaining: 0,
-  //     totalTimeRemaining: 1500
-  //   }
-  //   set(dbTimerReference, resetTimerObj);
-  // }
   return (
     <div className="App">
       <Header />
@@ -146,6 +121,7 @@ const App = () => {
         <Instructions />
         <Timer
         dbTimerRef={dbTimerReference}
+        timerRes={timer}
         />
         <ToDoInputForm 
           handleTaskInputChange={handleTaskInputChange}
