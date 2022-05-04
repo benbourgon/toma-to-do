@@ -2,7 +2,7 @@
 
 // Components
 import PlaySound from "./PlaySound.js";
-import firebase from "./Firebase.js"
+import firebase from "../utils/Firebase.js"
 // Modules
 import { useEffect, useState } from "react";
 import { 
@@ -20,10 +20,8 @@ const Timer = () => {
     const dbTimerRef = ref(database, "/timer")
 
     // create state variables for the timer
-    // state of the timer on load
-    const [ timerSnapshot, setTimerSnapshot ] = useState({});
 
-    // state: whether the timer is on or not
+    // state of whether the timer is on or not
     const [ isActive, setIsActive ] = useState(false);
     // the minutes remaining to be printed to the page
     const [ minutesLeft, setMinutesLeft ] = useState(25);
@@ -33,24 +31,7 @@ const Timer = () => {
     const [ timeLeft, setTimeLeft ] = useState(1500);
     // alternates between work mode and rest mode to change the starting timer value.
     const [ timerMode, setTimerMode ] = useState("work");
-
-    // get the saved value of the timer from firebase **DOES NOT WORK**
-    // useEffect(() => {
-    //     get(dbTimerRef)
-    //         .then((dbResponse) => {
-    //             return dbResponse.val()
-    //         })
-    //         .then((data) => {
-    //             console.log(data)
-    //             setTimerSnapshot(data);
-    //             setIsActive(timerSnapshot.active)
-    //             setMinutesLeft(timerSnapshot.minutesRemaining)
-    //             setSecondsLeft(timerSnapshot.secondsRemaining)
-    //             setTimeLeft(timerSnapshot.totalTimeRemaining)
-    //             setTimerMode(timerSnapshot.mode)
-    //         })
-    // }, [])
-
+    
     // The timer function itself to change the values every second
     useEffect(() => {
         let timeInterval = null;

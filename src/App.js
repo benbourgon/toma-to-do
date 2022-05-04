@@ -17,7 +17,8 @@ import Instructions from "./Components/Instructions.js"
 import DisplayToDoList from './Components/DisplayToDoList.js';
 import ToDoInputForm from './Components/ToDoInputForm.js';
 import Footer from "./Components/Footer.js"
-import firebase from "./Components/Firebase.js";
+// Utilities
+import firebase from "./utils/Firebase.js";
 
 // Styling
 import "./styles/sass/App.scss";
