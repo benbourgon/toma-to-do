@@ -19,7 +19,6 @@ import ToDoInputForm from './Components/ToDoInputForm.js';
 import Footer from "./Components/Footer.js"
 // Utilities
 import firebase from "./utils/Firebase.js";
-
 // Styling
 import "./styles/sass/App.scss";
 

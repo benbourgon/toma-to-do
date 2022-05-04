@@ -2,6 +2,7 @@
 
 // Components
 import PlaySound from "./PlaySound.js";
+// Utilities
 import firebase from "../utils/Firebase.js"
 // Modules
 import { useEffect, useState } from "react";
@@ -31,7 +32,7 @@ const Timer = () => {
     const [ timeLeft, setTimeLeft ] = useState(1500);
     // alternates between work mode and rest mode to change the starting timer value.
     const [ timerMode, setTimerMode ] = useState("work");
-    
+
     // The timer function itself to change the values every second
     useEffect(() => {
         let timeInterval = null;
