@@ -31,3 +31,13 @@ li {
 input[type="checkbox"] {
     display: none;
 }
+
+.flexContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    section {
+        flex-basis: 32%;
+    }
+}

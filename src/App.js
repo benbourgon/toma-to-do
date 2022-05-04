@@ -9,7 +9,7 @@ import {
         get,
         remove, 
         update 
-      } from "firebase/database";
+} from "firebase/database";
 // Components
 import Header from "./Components/Header.js"
 import Timer from "./Components/Timer.js"
@@ -28,13 +28,10 @@ const App = () => {
   // A state variable to hold the value of the task input field
   const [ taskInputValue, setTaskInputValue ] = useState("")
   const [ tomatoesInputValue, setTomatoesInputValue ] = useState("")
-  const [ timer, setTimer ] = useState({})
   // store the database info
   const database = getDatabase(firebase);
-  // the database reference for the tasks object
+  // store the location of the tasks on the database
   const dbTasksReference = ref(database, "/tasks/")
-  // the database reference for the timer object
-  const dbTimerReference = ref(database, "/timer")
 
   useEffect(() => {
     // listen for changes in the tasks database
@@ -59,14 +56,9 @@ const App = () => {
       setToDoList(newToDoList);
     })
   },[dbTasksReference])
-  // get the current timer details from the 
-  useEffect(() => {
-    get(dbTimerReference).then((dbResponse) => {
-      // create a new object to store the timer details pulled from firebase
-      const data = dbResponse.val()
-      setTimer(data);
-    })
-  }, [dbTimerReference])
+
+  //Event Handlers
+
   // Event handler to set the value of the task input field.
   const handleTaskInputChange = (event) => {
     setTaskInputValue(event.target.value)
@@ -119,22 +111,21 @@ const App = () => {
       <Header />
       <main>
         <Instructions />
-        <Timer
-        dbTimerRef={dbTimerReference}
-        timerRes={timer}
-        />
-        <ToDoInputForm 
-          handleTaskInputChange={handleTaskInputChange}
-          handleTomatoesAmountChange={handleTomatoesAmountChange}
-          handleSubmit={handleSubmit}
-          taskInputValue={taskInputValue}
-          tomatoesInputValue={tomatoesInputValue}
-        />
-        <DisplayToDoList
-          toDoList={toDoList}
-          handleRemoveToDo={handleRemoveToDo}
-          handleCheckboxClick={handleCheckboxClick}
-        />
+        <div className="flexContainer wrapper">
+          <Timer/>
+          <ToDoInputForm 
+            handleTaskInputChange={handleTaskInputChange}
+            handleTomatoesAmountChange={handleTomatoesAmountChange}
+            handleSubmit={handleSubmit}
+            taskInputValue={taskInputValue}
+            tomatoesInputValue={tomatoesInputValue}
+          />
+          <DisplayToDoList
+            toDoList={toDoList}
+            handleRemoveToDo={handleRemoveToDo}
+            handleCheckboxClick={handleCheckboxClick}
+          />
+        </div>
       </main>
       <Footer />
     </div>
