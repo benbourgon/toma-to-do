@@ -154,21 +154,31 @@ const Timer = () => {
             setSecondsLeft(0);
             setTimeLeft(300);
             setIsActive(false);
+
+            const timerResetObj = {
+            active: isActive,
+            minutesRemaining: minutesLeft,
+            mode: timerMode,
+            secondsRemaining: secondsLeft,
+            totalTimeRemaining: timeLeft
+            }
+            set(dbTimerRef, timerResetObj)
         }else{
             setTimerMode("work")
             setMinutesLeft(25);
             setSecondsLeft(0);
             setTimeLeft(1500);
             setIsActive(false);
-        }
-        const timerResetObj = {
+
+            const timerResetObj = {
             active: isActive,
             minutesRemaining: minutesLeft,
             mode: timerMode,
             secondsRemaining: secondsLeft,
             totalTimeRemaining: timeLeft
+            }
+            set(dbTimerRef, timerResetObj)
         }
-        set(dbTimerRef, timerResetObj)
     }
     return (
         <section className="timerSection" id="timerSection">
@@ -179,12 +189,12 @@ const Timer = () => {
                     <span className="secondsDisplay">{secondsLeft < 10 ? ("0" + secondsLeft) : secondsLeft}</span>
                 </h2>
                 {
-                    isActive ? (<button onClick={() => handleStopTimer()}>Stop Timer</button>) 
-                    : (<button onClick={() => handleStartTimer()}>Start Timer</button>)
+                    isActive ? (<button onClick={handleStopTimer}>Stop Timer</button>) 
+                    : (<button onClick={handleStartTimer}>Start Timer</button>)
                 }
-                <button onClick={() => handleResetTimer()}>Reset Timer</button>
+                <button onClick={handleResetTimer}>Reset Timer</button>
                 <h3>{timerMode} mode</h3>
-                <button onClick={() => handleSwitchMode()}>Switch Mode</button> 
+                <button onClick={handleSwitchMode}>Switch Mode</button> 
             </div>
         </section>
     )
