@@ -10,8 +10,7 @@ import {
     getDatabase,
     ref, 
     set, 
-    update, 
-    get
+    update
 } from "firebase/database";
 // Styling
 
@@ -31,61 +30,65 @@ const Timer = () => {
     // the total time left in seconds
     const [ timeLeft, setTimeLeft ] = useState(1500);
     // alternates between work mode and rest mode to change the starting timer value.
-    const [ timerMode, setTimerMode ] = useState("work");
+    const [ timerWorkMode, setTimerWorkMode ] = useState(true);
+    
 
     // The timer function itself to change the values every second
     useEffect(() => {
         let timeInterval = null;
         // if the timer has been started, 
-        if(isActive && timeLeft >=0) {
+        if(isActive === true && timeLeft > 0) {
             timeInterval = setInterval(() => {
                 setTimeLeft(previousTime => previousTime - 1);
                 setMinutesLeft(Math.floor(timeLeft / 60))
                 setSecondsLeft(timeLeft % 60)
             }, 1000)
         // if the timer has completed in work mode, switch to rest mode, and adjust values
-        } else if(timeLeft <= 0 && timerMode ==="work"){
-                clearInterval(timeInterval);
-                <PlaySound />
-                setIsActive(false)
-                setTimeLeft(300);
-                setMinutesLeft(5);
-                setSecondsLeft(0);
-                setTimerMode("rest");
-                alert("Way to tackle that tomato, take a short break!")
-                // store the new timer values in an object and push to firebase.
-                const timerResetObj = {
-                    active: isActive,
-                    minutesRemaining: minutesLeft,
-                    mode: timerMode,
-                    secondsRemaining: secondsLeft,
-                    totalTimeRemaining: timeLeft
-                }
-                set(dbTimerRef, timerResetObj)
+        } else if(timeLeft < 0 && timerWorkMode === true){
+            clearInterval(timeInterval);
+            <PlaySound />
+            setIsActive(false)
+            setTimeLeft(300);
+            setMinutesLeft(5);
+            setSecondsLeft(0);
+            setTimerWorkMode(false);
+            alert("Way to tackle that tomato, take a short break!")
+            // store the new timer values in an object and push to firebase.
+            const timerResetObj = {
+                "active": isActive,
+                "minutesRemaining": minutesLeft,
+                "workMode": timerWorkMode,
+                "secondsRemaining": secondsLeft,
+                "totalTimeRemaining": timeLeft
+            }
+            set(dbTimerRef, timerResetObj)
 
-        } else if(timeLeft <= 0 && timerMode ==="rest"){
-                clearInterval(timeInterval);
-                <PlaySound />
-                setIsActive(false)
-                setTimeLeft(1500);
-                setMinutesLeft(25);
-                setSecondsLeft(0);
-                setTimerMode("work");
-                alert("Hope that was a nice break. Work time starts now!")
-                // store the new timer values in an object and push to firebase.
-                const timerResetObj = {
-                    active: isActive,
-                    minutesRemaining: minutesLeft,
-                    mode: timerMode,
-                    secondsRemaining: secondsLeft,
-                    totalTimeRemaining: timeLeft
-                }
-                set(dbTimerRef, timerResetObj)
+        } else if(timeLeft < 0 && timerWorkMode === false){
+            clearInterval(timeInterval);
+            <PlaySound />
+            setIsActive(false)
+            setTimeLeft(1500);
+            setMinutesLeft(25);
+            setSecondsLeft(0);
+            setTimerWorkMode(true);
+            alert("Hope that was a nice break. Work time starts now!");
+            // store the new timer values in an object and push to firebase.
+            const timerResetObj = {
+                "active": isActive,
+                "minutesRemaining": minutesLeft,
+                "workMode": timerWorkMode,
+                "secondsRemaining": secondsLeft,
+                "totalTimeRemaining": timeLeft
+            }
+            set(dbTimerRef, timerResetObj)
         } else {
             clearInterval(timeInterval)
         }
-        return () => clearInterval(timeInterval);
-    },[isActive, timeLeft])
+        return() => {
+            clearInterval(timeInterval)
+        };
+    }, [isActive, dbTimerRef, timeLeft, minutesLeft, secondsLeft, timerWorkMode])
+    
 
     // Event handler for when the start timer button is clicked
     const handleStartTimer = () => {
@@ -96,71 +99,74 @@ const Timer = () => {
     // Event handler for when the stop timer button is clicked
     const handleStopTimer = () => {
         setIsActive(false);
-        const newTimerObj = {
-            active: false,
-            minutesRemaining: minutesLeft,
-            mode: timerMode,
-            secondsRemaining: secondsLeft,
-            totalTimeRemaining: timeLeft
-        }
-        set(dbTimerRef, newTimerObj)
+
+        set(dbTimerRef, {
+            "active": false,
+            "minutesRemaining": minutesLeft,
+            "workMode": timerWorkMode,
+            "secondsRemaining": secondsLeft,
+            "totalTimeRemaining": timeLeft
+        })
     }
     const handleResetTimer = () => {
-        if(timerMode==="work"){
+        if(timerWorkMode){
             setIsActive(false);
             setMinutesLeft(25);
-            setTimerMode("work");
+            setTimerWorkMode(true);
             setSecondsLeft(0);
             setTimeLeft(1500);
-
-        }else if(timerMode==="rest"){
-            setIsActive(false);
-            setMinutesLeft(5);
-            setTimerMode("rest");
-            setSecondsLeft(0);
-            setTimeLeft(300);
-        }
-        const timerResetObj = {
-            active: isActive,
-            minutesRemaining: minutesLeft,
-            mode: timerMode,
-            secondsRemaining: secondsLeft,
-            totalTimeRemaining: timeLeft
-        }
-        set(dbTimerRef, timerResetObj)
-    }
-    const handleSwitchMode = () => {
-        if(timerMode==="work"){
-            setTimerMode("rest");
-            setMinutesLeft(5);
-            setSecondsLeft(0);
-            setTimeLeft(300);
-            setIsActive(false);
-
-            const timerResetObj = {
-            active: isActive,
-            minutesRemaining: minutesLeft,
-            mode: timerMode,
-            secondsRemaining: secondsLeft,
-            totalTimeRemaining: timeLeft
-            }
-            set(dbTimerRef, timerResetObj)
+            set(dbTimerRef, {
+                "active": isActive,
+                "minutesRemaining": minutesLeft,
+                "workMode": timerWorkMode,
+                "secondsRemaining": secondsLeft,
+                "totalTimeRemaining": timeLeft
+            })
         }else{
-            setTimerMode("work")
+            setIsActive(false);
+            setMinutesLeft(5);
+            setTimerWorkMode(false);
+            setSecondsLeft(0);
+            setTimeLeft(300);
+            set(dbTimerRef, {
+                "active": isActive,
+                "minutesRemaining": minutesLeft,
+                "workMode": timerWorkMode,
+                "secondsRemaining": secondsLeft,
+                "totalTimeRemaining": timeLeft
+            })
+        }
+    }
+    const handleSwitchMode = (timerMode) => {
+        if(timerMode===true){
+            setTimerWorkMode(false);
+            setMinutesLeft(5);
+            setSecondsLeft(0);
+            setTimeLeft(300);
+            setIsActive(false);
+
+            set(dbTimerRef, {
+                "active": isActive,
+                "minutesRemaining": minutesLeft,
+                "workMode": timerWorkMode,
+                "secondsRemaining": secondsLeft,
+                "totalTimeRemaining": timeLeft
+            })
+        } else {
+            setTimerWorkMode(true)
             setMinutesLeft(25);
             setSecondsLeft(0);
             setTimeLeft(1500);
             setIsActive(false);
 
-            const timerResetObj = {
-            active: isActive,
-            minutesRemaining: minutesLeft,
-            mode: timerMode,
-            secondsRemaining: secondsLeft,
-            totalTimeRemaining: timeLeft
-            }
-            set(dbTimerRef, timerResetObj)
-        }
+            set(dbTimerRef, {
+                "active": isActive,
+                "minutesRemaining": minutesLeft,
+                "workMode": timerWorkMode,
+                "secondsRemaining": secondsLeft,
+                "totalTimeRemaining": timeLeft
+            })
+        };
     }
     return (
         <section className="timerSection" id="timerSection">
@@ -174,9 +180,9 @@ const Timer = () => {
                     isActive ? (<button onClick={handleStopTimer}>Stop Timer</button>) 
                     : (<button onClick={handleStartTimer}>Start Timer</button>)
                 }
-                <button onClick={handleResetTimer}>Reset Timer</button>
-                <h3>{timerMode} mode</h3>
-                <button onClick={handleSwitchMode}>Switch Mode</button> 
+                <button onClick={() => handleResetTimer}>Reset Timer</button>
+                <h3>{timerWorkMode ? "work" : "rest"} mode</h3>
+                <button onClick={() => handleSwitchMode(timerWorkMode)}>Switch Mode</button> 
             </div>
         </section>
     )
