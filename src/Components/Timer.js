@@ -38,7 +38,7 @@ const Timer = () => {
     // hold the value of the setInterval function
     const [timeInterval, setTimeInterval] = useState(0);
     
-    const finishTimer = () => {
+    const handleTimerComplete = () => {
         // if the timer has completed in work mode, switch to rest mode, and adjust values
         if(timeLeft < 0 && timerWorkMode === true){
             clearInterval(timeInterval);
