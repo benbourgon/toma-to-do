@@ -36,24 +36,26 @@ const App = () => {
   useEffect(() => {
     // listen for changes in the tasks database
     get(dbTasksReference).then((dbResponse) => {
-      // Create a variable to store our new to-do list when something changes
-      const newToDoList = [];
-      // store response from Firebase
-      const data = dbResponse.val();
-      
-      // Use a for in loop to sort through the object and push its values to a new array.
-      for(let key in data){
-        // define the structure of each to-do object
-        let newToDoObject = {
-          key:key, 
-          task: data[key].task, 
-          complete: data[key].complete, 
-          estimatedTomatoes: data[key].estimatedTomatoes, completedTomatoes: data[key].completedTomatoes
-        };
-        // add the object to the array
-        newToDoList.push(newToDoObject);
+      if(dbResponse.exists()){
+        // Create a variable to store our new to-do list when something changes
+        const newToDoList = [];
+        // store response from Firebase
+        const data = dbResponse.val();
+        
+        // Use a for in loop to sort through the object and push its values to a new array.
+        for(let key in data){
+          // define the structure of each to-do object
+          let newToDoObject = {
+            key:key, 
+            task: data[key].task, 
+            complete: data[key].complete, 
+            estimatedTomatoes: data[key].estimatedTomatoes, completedTomatoes: data[key].completedTomatoes
+          };
+          // add the object to the array
+          newToDoList.push(newToDoObject);
+        }
+        setToDoList(newToDoList);
       }
-      setToDoList(newToDoList);
     })
   },[dbTasksReference])
 

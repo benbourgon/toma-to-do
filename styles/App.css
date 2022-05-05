@@ -221,9 +221,14 @@ template {
   overflow: hidden;
 }
 
+html {
+  font-size: 125%;
+}
+
 .App {
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
 
 .wrapper {
