@@ -65,14 +65,16 @@ const App = () => {
   }
   // Event handler to set the value of the # of tomatoes select element
   const handleTomatoesAmountChange = (event) => {
-    setTomatoesInputValue(event.target.value)
+    if (event.target.value !== ""){
+      setTomatoesInputValue(event.target.value)
+    }
   }
   // Event handler to push a new to-do-item to the Firebase database on submit
   const handleSubmit = (event) => {
     // prevent the default submit behaviour
     event.preventDefault();
     // if the task is not empty
-    if(taskInputValue){
+    if(taskInputValue && tomatoesInputValue !== ""){
       // create a new object from the values provided
       const toDoObject = {
         task: taskInputValue,
@@ -82,6 +84,10 @@ const App = () => {
       }
       // Use push to add the toDoObject to the database at the tasks object reference point
       push(dbTasksReference, toDoObject);
+    } else if(taskInputValue && tomatoesInputValue === ""){
+      alert("Please estimate your time in tomatoes (aka 25-minute blocks) before clicking Add Task")
+    } else {
+      alert("Oops, please enter a task before clicking Add Task")
     }
     // Reset the state of the inputs to an empty string.
     setTaskInputValue("")
