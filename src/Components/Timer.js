@@ -2,6 +2,8 @@
 
 // Components
 import PlaySound from "./PlaySound.js";
+import TimerButtons from "./TimerButtons.js"
+import DisplayTimer from "./DisplayTimer.js"
 // Utilities
 import firebase from "../utils/Firebase.js"
 // Modules
@@ -46,13 +48,13 @@ const Timer = () => {
         // if the timer has completed in work mode, switch to rest mode, and adjust values
         } else if(timeLeft < 0 && timerWorkMode === true){
             clearInterval(timeInterval);
-            <PlaySound />
-            setIsActive(false)
+            <PlaySound />;
+            setIsActive(false);
             setTimeLeft(300);
             setMinutesLeft(5);
             setSecondsLeft(0);
             setTimerWorkMode(false);
-            alert("Way to tackle that tomato, take a short break!")
+            alert("Way to tackle that tomato, take a short break!");
             // store the new timer values in an object and push to firebase.
             const timerResetObj = {
                 "active": isActive,
@@ -64,9 +66,10 @@ const Timer = () => {
             set(dbTimerRef, timerResetObj)
 
         } else if(timeLeft < 0 && timerWorkMode === false){
+            // when the timer runs out in work mode
             clearInterval(timeInterval);
-            <PlaySound />
-            setIsActive(false)
+            <PlaySound />;
+            setIsActive(false);
             setTimeLeft(1500);
             setMinutesLeft(25);
             setSecondsLeft(0);
@@ -88,7 +91,6 @@ const Timer = () => {
             clearInterval(timeInterval)
         };
     }, [isActive, dbTimerRef, timeLeft, minutesLeft, secondsLeft, timerWorkMode])
-    
 
     // Event handler for when the start timer button is clicked
     const handleStartTimer = () => {
@@ -108,8 +110,8 @@ const Timer = () => {
             "totalTimeRemaining": timeLeft
         })
     }
-    const handleResetTimer = () => {
-        if(timerWorkMode){
+    const handleResetTimer = (timerMode) => {
+        if(timerMode){
             setIsActive(false);
             setMinutesLeft(25);
             setTimerWorkMode(true);
@@ -172,17 +174,18 @@ const Timer = () => {
         <section className="timerSection" id="timerSection">
             <div className="wrapper">
                 <h2>Timer:</h2>
-                <h2 className="timerDisplay">
-                    <span className="minutesDisplay">{minutesLeft}</span>:
-                    <span className="secondsDisplay">{secondsLeft < 10 ? ("0" + secondsLeft) : secondsLeft}</span>
-                </h2>
-                {
-                    isActive ? (<button onClick={handleStopTimer}>Stop Timer</button>) 
-                    : (<button onClick={handleStartTimer}>Start Timer</button>)
-                }
-                <button onClick={() => handleResetTimer}>Reset Timer</button>
-                <h3>{timerWorkMode ? "work" : "rest"} mode</h3>
-                <button onClick={() => handleSwitchMode(timerWorkMode)}>Switch Mode</button> 
+                <DisplayTimer
+                    minutesLeft={minutesLeft}
+                    secondsLeft={secondsLeft}
+                />
+                <TimerButtons 
+                    isActive={isActive}
+                    timerWorkMode={timerWorkMode}
+                    handleResetTimer={handleResetTimer}
+                    handleStartTimer={handleStartTimer}
+                    handleStopTimer={handleStopTimer}
+                    handleSwitchMode={handleSwitchMode}
+                />
             </div>
         </section>
     )
