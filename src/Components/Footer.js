@@ -2,9 +2,9 @@
 
 const Footer = () => {
     return (
-        <footer>
+        <footer class="App-footer">
             <div className="wrapper">
-                <p>Created by <a href="https://www.benbourgon.com/">Ben Bourgon</a> at <a href="https://junocollege.com/">Juno College</a>.</p>
+                <p>Created by <a href="https://www.benbourgon.com/">Ben Bourgon</a> at <a href="https://junocollege.com/" target="_blank" rel="noreferrer">Juno College</a>.</p>
             </div>
         </footer>
     )

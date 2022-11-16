@@ -116,21 +116,23 @@ const App = () => {
     <div className="App">
       <Header />
       <main>
-        <Instructions />
-        <div className="flexContainer wrapper">
-          <Timer/>
-          <ToDoInputForm 
-            handleTaskInputChange={handleTaskInputChange}
-            handleTomatoesAmountChange={handleTomatoesAmountChange}
-            handleSubmit={handleSubmit}
-            taskInputValue={taskInputValue}
-            tomatoesInputValue={tomatoesInputValue}
-          />
-          <DisplayToDoList
-            toDoList={toDoList}
-            handleRemoveToDo={handleRemoveToDo}
-            handleCheckboxClick={handleCheckboxClick}
-          />
+        <div className="wrapper">
+          <Instructions />
+          <div className="flexContainer">
+            <Timer/>
+            <ToDoInputForm 
+              handleTaskInputChange={handleTaskInputChange}
+              handleTomatoesAmountChange={handleTomatoesAmountChange}
+              handleSubmit={handleSubmit}
+              taskInputValue={taskInputValue}
+              tomatoesInputValue={tomatoesInputValue}
+            />
+            <DisplayToDoList
+              toDoList={toDoList}
+              handleRemoveToDo={handleRemoveToDo}
+              handleCheckboxClick={handleCheckboxClick}
+            />
+          </div>
         </div>
       </main>
       <Footer />

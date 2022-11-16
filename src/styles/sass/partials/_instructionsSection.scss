@@ -1,0 +1,17 @@
+.instructions {
+    width: 100%;
+}
+.instructionsToggleButton {
+    width: 100%;
+}
+
+.instructionsList {
+    width: 100%;
+    min-height: 100%;
+
+    .instruction {
+        width: 100%;
+        margin: 5px 0;
+        padding: 2px 0;
+    }
+}

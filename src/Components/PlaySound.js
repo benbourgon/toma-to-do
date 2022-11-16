@@ -1,4 +1,4 @@
-// TimerComplete.js
+// PlaySound.js
 
 import { useEffect, useState } from "react";
 

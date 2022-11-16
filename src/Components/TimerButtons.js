@@ -9,7 +9,6 @@ const TimerButtons = (props) => {
         timerWorkMode,
         isActive
     } = props
-    
     return (
         <>
             {isActive ? (<button onClick={handleStopTimer}>Stop Timer</button>) 
