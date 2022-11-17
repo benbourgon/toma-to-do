@@ -7,7 +7,8 @@ const HideInstructionsButton = (props) => {
     return (
         <>
             <button className="instructionsToggleButton" onClick={handleHideInstructions}>
-                Instructions: {isOpen ? <FaAngleUp /> : <FaAngleDown/>}
+                <p>Instructions</p> 
+                <i>{isOpen ? <FaAngleUp /> : <FaAngleDown/>}</i>
             </button>
         </>
     )

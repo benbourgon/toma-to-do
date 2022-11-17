@@ -3,15 +3,7 @@ import HideInstructionsButton from "./HideInstructionsButton";
 import React, { useState } from "react";
 const Instructions = () => {
     const [ isOpen, setIsOpen ] = useState(true);
-
-    const handleHideInstructions = (e) => {
-        e.preventDefault();
-        if(isOpen){
-            setIsOpen(false);
-        } else {
-            setIsOpen(true);
-        }
-    }
+    const handleHideInstructions = () => setIsOpen(!isOpen);
     return (
         <section id="instructions" className="instructions">
                 <div className="accordion">
@@ -23,13 +15,13 @@ const Instructions = () => {
                             />
                         </h2>
                         <div className="accordionCollapse">
-                            {isOpen ? <div className="accordionBody">
-                                <ol className="instructionsList">
+                            <div className="accordionBody">
+                                <ol className={ isOpen ? "instructionsList" : "instructionsList sr-only"}>
                                     <li className="instruction">Enter your task below and provide your best guess as to how many twenty-five-minute increments of time (or <span className="tomatoes">tomatoes</span>) it will take to complete.</li>
                                     <li className="instruction">When the timer ends, take a five-minute break before resuming work.</li>
                                     <li className="instruction">After four consecutive tomatoes, take a twenty-minute break.</li>
                                 </ol>
-                            </div> : null}
+                            </div>
                         </div>
                     </div>
                 </div>
