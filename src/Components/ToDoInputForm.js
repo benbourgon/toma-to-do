@@ -41,18 +41,18 @@ const ToDoInputForm = (props) => {
                         value={tomatoesInputValue}
                     >
                         <option value="" disabled defaultValue={""}>estimated # of tomatoes</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
                     </select>
-                    <p><span className="tomatoes">tomatoes</span> aka {tomatoesInputValue!== "" ? parseInt(tomatoesInputValue) * 25 : "___"} minutes</p>
+                    <p><span className="tomatoes">tomatoes</span> = {tomatoesInputValue!== "" ? parseInt(tomatoesInputValue) * 25 : "_"} mins</p>
                     <button 
                         onClick={handleSubmit}
                         type="submit"> 
