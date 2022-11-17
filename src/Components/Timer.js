@@ -1,13 +1,10 @@
 // Timer.js
 
-// Components
-
-// Utilities
 
 // Modules
-import { useState } from "react";
-
-// Styling
+import React, { useState } from "react";
+import DisplayTimer from "./DisplayTimer"
+import TimerButtons from  "./TimerButtons"
 
 const Timer = () => {
     const [totalTimeLeft, setTotalTimeLeft] = useState(150_000);
@@ -16,14 +13,14 @@ const Timer = () => {
     const [isActive, setIsActive] = useState(false);
 
     return (
-        <section id="timer" class="timerSection">
+        <section id="timer" className="timerSection">
             <div className="wrapper">
                 <h2>Timer:</h2>
-                <p class="timerDisplay"> 
-                    <span class="minutesValue">{minutesLeft}</span>:
-                    <span class="secondsValue">{seconds < 10 ? ("0" + seconds) : seconds}</span>
-                    <span></span>
-                </p>
+                <DisplayTimer 
+                    minutesLeft={minutesLeft}
+                    secondsLeft={seconds}
+                />
+                <TimerButtons />
             </div>
         </section>
     )

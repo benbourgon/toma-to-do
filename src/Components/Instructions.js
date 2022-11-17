@@ -1,27 +1,35 @@
 // Instructions.js
 import HideInstructionsButton from "./HideInstructionsButton";
+import React, { useState } from "react";
 const Instructions = () => {
+    const [ isOpen, setIsOpen ] = useState(true);
 
-    const handleHideInstructions = (event) => {
-        console.log(event);
+    const handleHideInstructions = (e) => {
+        e.preventDefault();
+        if(isOpen){
+            setIsOpen(false);
+        } else {
+            setIsOpen(true);
+        }
     }
     return (
         <section id="instructions" className="instructions">
                 <div className="accordion">
-                    <div className="accordion-item">
-                        <h2 className="accordion-header">
+                    <div className="accordionItem">
+                        <h2 className="accordionHeader">
                             <HideInstructionsButton
                                 handleHideInstructions={handleHideInstructions}
+                                isOpen={isOpen}
                             />
                         </h2>
                         <div className="accordionCollapse">
-                            <div className="accordion-body">
+                            {isOpen ? <div className="accordionBody">
                                 <ol className="instructionsList">
                                     <li className="instruction">Enter your task below and provide your best guess as to how many twenty-five-minute increments of time (or <span className="tomatoes">tomatoes</span>) it will take to complete.</li>
                                     <li className="instruction">When the timer ends, take a five-minute break before resuming work.</li>
                                     <li className="instruction">After four consecutive tomatoes, take a twenty-minute break.</li>
                                 </ol>
-                            </div>
+                            </div> : null}
                         </div>
                     </div>
                 </div>

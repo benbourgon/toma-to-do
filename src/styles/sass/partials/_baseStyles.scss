@@ -16,27 +16,6 @@ body {
     width: 95%;
     margin: 0 auto;
 }
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    width: 100%;
-}
-
-li {
-    display: flex;
-    width: 300px;
-    min-width: 300px;
-    height: 25px;
-    justify-content: space-between;
-    align-items: center;    
-    margin: 5px 0;
-
-    button {
-        background-color: transparent;
-        border: none;
-    }
-}
 
 input[type="checkbox"] {
     display: none;

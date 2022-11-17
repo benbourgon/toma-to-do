@@ -1,4 +1,5 @@
 // DisplayTimer.js
+import React from "react";
 
 const DisplayTimer = (props) => {
     const {
@@ -7,10 +8,10 @@ const DisplayTimer = (props) => {
     } = props
     return (
         <>
-            <h2 className="timerDisplay">
+            <p className="timerDisplay">
                 <span className="minutesDisplay">{minutesLeft}</span>:
                 <span className="secondsDisplay">{secondsLeft < 10 ? ("0" + secondsLeft) : secondsLeft}</span>
-            </h2>
+            </p>
         </>
     )
 }

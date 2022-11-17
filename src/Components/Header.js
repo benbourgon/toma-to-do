@@ -1,4 +1,5 @@
 // Header.js
+import React from "react";
 import { GiTomato } from "react-icons/gi"
 
 const Header = () => {

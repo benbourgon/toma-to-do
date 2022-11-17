@@ -1,6 +1,7 @@
 // DisplayToDoList.js
 
 // Modules
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 
@@ -13,10 +14,10 @@ const DisplayToDoList = (props) => {
             <div className="wrapper">
                 <form action="">
                     <h2>To-Do:</h2>
-                    <ul>
+                    <ul className="toDoList">
                         {toDoList.map((toDo) => {
                             return (
-                                <li key={toDo.key}>
+                                <li className="toDoItem" key={toDo.key}>
                                     <input
                                         type="checkbox"
                                         name="checkbox"
