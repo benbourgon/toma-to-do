@@ -2,6 +2,12 @@
 To Do List Section partial
 ===========================
 */
+
+.todos {
+    h2 {
+        margin-bottom: 10px;
+    }
+}
 .toDoList {
     margin: 0;
     padding: 0;
@@ -9,16 +15,25 @@ To Do List Section partial
     width: 100%;
 }
 .toDoListItem {
+    font-size: $sizeToDo;
+    font-weight: bold;
     display: flex;
     width: 300px;
     min-width: 300px;
     height: 25px;
     justify-content: space-between;
     align-items: center;
-    margin: 5px 0;
+    margin: 40px 0;
 
     button {
         background-color: transparent;
         border: none;
+    }
+    p {
+        margin: 10px;
+    }
+
+    .tomatoes {
+        display: block;
     }
 }
