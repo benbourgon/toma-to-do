@@ -2,8 +2,7 @@
 
 // Modules
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
+import { GrCheckbox, GrCheckboxSelected, GrFormTrash } from "react-icons/gr"
 
 const DisplayToDoList = (props) => {
     const { toDoList, handleCheckboxClick, handleRemoveToDo } = props; 
@@ -17,7 +16,7 @@ const DisplayToDoList = (props) => {
                     <ul className="toDoList">
                         {toDoList.map((toDo) => {
                             return (
-                                <li className="toDoItem" key={toDo.key}>
+                                <li className="toDoListItem" key={toDo.key}>
                                     <input
                                         type="checkbox"
                                         name="checkbox"
@@ -26,14 +25,14 @@ const DisplayToDoList = (props) => {
                                         onChange={() => handleCheckboxClick(toDo.key, toDo.complete)}
                                     />
                                     <label htmlFor={`${toDo.key}CheckBox`}>
-                                        <FontAwesomeIcon icon={toDo.complete ? faSquareCheck : faSquare}/><span className="sr-only">Mark task complete</span>
+                                        {toDo.complete ? <GrCheckboxSelected /> : <GrCheckbox />}<span className="sr-only">Mark task complete</span>
                                     </label>
-                                    <p>{toDo.task} - <span>{toDo.completedTomatoes}/{toDo.estimatedTomatoes} tomatoes</span></p>
+                                    <p>{toDo.task} <span className="tomatoes"> {toDo.completedTomatoes}/{toDo.estimatedTomatoes} tomatoes</span></p>
                                     <button
                                         onClick={() => handleRemoveToDo(toDo.key)}
                                         aria-label="Remove To-Do item"
                                     >
-                                        <FontAwesomeIcon icon={faTrashCan}/>
+                                        <GrFormTrash />
                                     </button>
                                 </li>
                             )
