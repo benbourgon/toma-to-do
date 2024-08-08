@@ -9,7 +9,10 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "recommended": true,
+      "nursery": {
+        "useImportRestrictions": "error"
+      },
       "complexity": {
         "noBannedTypes": "error",
         "noExtraBooleanCast": "error",
@@ -47,7 +50,18 @@
         "useValidForDirection": "error",
         "useYield": "error"
       },
-      "style": { "noNamespace": "error", "useAsConstAssertion": "error" },
+      "style": {
+        "noNamespace": "error",
+        "useAsConstAssertion": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": true,
+            "requireAscii": true,
+            "filenameCases": ["kebab-case", "export"]
+          }
+        }
+      },
       "suspicious": {
         "noAssignInExpressions": "error",
         "noAsyncPromiseExecutor": "error",

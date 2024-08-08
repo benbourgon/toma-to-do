@@ -1,10 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import { createRoot } from "react-dom/client";
+// biome-ignore lint/nursery/useImportRestrictions: Need to import App to inject it into the root
+import App from "./app/app";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+const domNode = document.getElementById("root");
+if (!domNode) {
+  throw new Error("Root element not found");
+}
+const root = createRoot(domNode);
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
