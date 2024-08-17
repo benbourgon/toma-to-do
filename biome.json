@@ -10,9 +10,6 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "nursery": {
-        "useImportRestrictions": "error"
-      },
       "complexity": {
         "noBannedTypes": "error",
         "noExtraBooleanCast": "error",

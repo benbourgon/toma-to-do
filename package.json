@@ -7,54 +7,42 @@
     "dev": "vite",
     "build": "tsc -b && vite build && npx @biomejs/biome check --write .",
     "lint": "npx @biomejs/biome check --write .",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "^2.45.0",
+    "@tanstack/react-query": "^5.51.23",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.424.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.33.0",
+    "lucide-react": "^0.427.0",
+    "postgres": "^3.4.4",
+    "react": "19.0.0-rc-1eaccd82-20240816",
+    "react-dom": "19.0.0-rc-1eaccd82-20240816",
+    "react-error-boundary": "^4.0.13",
+    "react-router-dom": "^6.26.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "vite-tsconfig-paths": "^5.0.0"
+    "vite-tsconfig-paths": "^5.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@chromatic-com/storybook": "^1.6.1",
-    "@storybook/addon-essentials": "^8.2.8",
-    "@storybook/addon-interactions": "^8.2.8",
-    "@storybook/addon-links": "^8.2.8",
-    "@storybook/addon-onboarding": "^8.2.8",
-    "@storybook/addon-themes": "^8.2.8",
-    "@storybook/blocks": "^8.2.8",
-    "@storybook/react": "^8.2.8",
-    "@storybook/react-vite": "^8.2.8",
-    "@storybook/test": "^8.2.8",
     "@types/node": "^22.1.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
-    "@typescript-eslint/parser": "^7.15.0",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "eslint-plugin-storybook": "^0.8.0",
+    "drizzle-kit": "^0.24.0",
     "postcss": "^8.4.40",
-    "storybook": "^8.2.8",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   }
 }
