@@ -1,19 +1,18 @@
 // features/timer/components/Timer.tsx
-import { useState } from "react";
-import { defaultTimerData } from "../stores/defaultTimerData.ts";
-const Timer = () => {
-  const [timerData, setTimerData] = useState(defaultTimerData);
+
+// Libraries
+
+// Types
+import type { TimerTable } from "@/types/database.types";
+export const Timer = (props: TimerTable) => {
+  const { seconds_left } = props;
+  if (typeof seconds_left !== "number") throw new Error("Invalid seconds_left");
+  const minutesLeft = Math.floor(seconds_left / 60);
+  const secondsRemainder = seconds_left % 60;
   return (
-    <h2>
-      {timerData.secondsLeft / 60 < 10
-        ? `0${timerData.secondsLeft / 60}`
-        : timerData.secondsLeft / 60}
-      :
-      {timerData.secondsLeft % 60 < 10
-        ? `0${timerData.secondsLeft % 60}`
-        : timerData.secondsLeft % 60}
-    </h2>
+    <h3>
+      {minutesLeft < 10 ? `0${minutesLeft}` : minutesLeft}:
+      {secondsRemainder < 10 ? `0${secondsRemainder}` : secondsRemainder}
+    </h3>
   );
 };
-
-export default Timer;

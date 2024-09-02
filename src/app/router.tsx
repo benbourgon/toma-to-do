@@ -1,25 +1,14 @@
-import { useMemo } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-export const createAppRouter = () =>
-  createBrowserRouter([
-    {
-      path: "/",
-      lazy: async () => {
-        const { LandingRoute } = await import("./routes/landing");
-        return { Component: LandingRoute };
-      },
-    },
-    {
-      path: "/app",
-      lazy: async () => {
-        const { AppRoot } = await import("./routes/app/root");
-        return { Component: AppRoot };
-      },
-    },
-  ]);
+import { createRouter } from "@tanstack/react-router";
 
-export const AppRouter = () => {
-  const router = useMemo(() => createAppRouter(), []);
+// Import the generated route tree
+import { routeTree } from "./routeTree.gen";
 
-  return <RouterProvider router={router} />;
-};
+// Create a new router instance
+export const router = createRouter({ routeTree });
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}

@@ -1,4 +1,5 @@
 {
+  "extends": "@total-typescript/tsconfig/bundler/no-dom/app",
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",

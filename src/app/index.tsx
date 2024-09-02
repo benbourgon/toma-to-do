@@ -1,10 +1,11 @@
+import { RouterProvider } from "@tanstack/react-router";
 import { AppProvider } from "./provider";
-import { AppRouter } from "./router";
+import { router } from "./router";
 
 export const App = () => {
   return (
     <AppProvider>
-      <AppRouter />
+      <RouterProvider router={router} />
     </AppProvider>
   );
 };
