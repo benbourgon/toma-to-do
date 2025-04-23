@@ -89,7 +89,7 @@
         "useValidTypeof": "error"
       }
     },
-    "ignore": ["**/dist"]
+    "ignore": ["**/dist", "routeTree.gen.ts"]
   },
   "overrides": [
     {

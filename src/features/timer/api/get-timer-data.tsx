@@ -4,9 +4,9 @@
 import { supabase } from "@/lib/supabase/supabaseClient";
 
 // Types
-import type { Timer } from "@/types/database.types";
+import type { TimerTable } from "@/types/database.types";
 
-export const getTimerData = async (userId: Timer["user_id"]) => {
+export const getTimerData = async (userId: TimerTable["user_id"]) => {
   try {
     const { data, error } = await supabase
       .from("timer")

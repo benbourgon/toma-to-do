@@ -12,14 +12,15 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
-    "@supabase/supabase-js": "^2.45.0",
+    "@supabase/supabase-js": "npm:@jsr/supabase__supabase-js@^2.46.1",
     "@tanstack/react-query": "^5.51.23",
     "@tanstack/react-router": "^1.48.4",
+    "caniuse-lite": "^1.0.30001715",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-zod": "^0.5.1",
     "effect": "^3.6.4",
-    "lucide-react": "^0.427.0",
+    "lucide-react": "^0.454.0",
     "postgres": "^3.4.4",
     "react": "19.0.0-rc-1eaccd82-20240816",
     "react-dom": "19.0.0-rc-1eaccd82-20240816",
@@ -31,10 +32,10 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
+    "@biomejs/biome": "^1.9.4",
     "@tanstack/router-devtools": "^1.48.4",
     "@tanstack/router-plugin": "^1.48.3",
-    "@total-typescript/ts-reset": "^0.5.1",
+    "@total-typescript/ts-reset": "^0.6.1",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^22.4.1",
     "@types/react": "npm:types-react@rc",
@@ -48,6 +49,10 @@
   },
   "overrides": {
     "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc"
+    "@types/react-dom": "npm:types-react-dom@rc",
+    "esbuild": "^0.25.3"
+  },
+  "resolutions": {
+    "esbuild": "^0.25.3"
   }
 }

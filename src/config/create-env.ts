@@ -18,12 +18,14 @@ const createEnv = () => {
     const [key, value] = curr;
     if (key.startsWith("VITE_APP_")) {
       const prefixRemoved = key.replace("VITE_APP_", "");
-      if (typeof prefixRemoved !== "string")
+      if (typeof prefixRemoved !== "string") {
         throw new Error(
           `Environment variable ${key} is undefined after removing VITE_APP_ prefix`,
         );
-      if (typeof value !== "string")
+      }
+      if (typeof value !== "string") {
         throw new Error("envVars value is not a string");
+      }
       acc[prefixRemoved] = value;
     }
     return acc;
@@ -35,9 +37,11 @@ const createEnv = () => {
     throw new Error(
       `Invalid env provided.
 The following variables are missing or invalid:
-${Object.entries(parsedEnv.error.flatten().fieldErrors)
-  .map(([k, v]) => `- ${k}: ${v}`)
-  .join("\n")}
+${
+        Object.entries(parsedEnv.error.flatten().fieldErrors)
+          .map(([k, v]) => `- ${k}: ${v}`)
+          .join("\n")
+      }
 `,
     );
   }
