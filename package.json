@@ -1,58 +1,55 @@
 {
-  "name": "toma-to-do",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "packageManager": "npm@10.8.2",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build && npx @biomejs/biome check --write .",
-    "lint": "npx @biomejs/biome check --write .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@radix-ui/react-slot": "^1.1.0",
-    "@supabase/supabase-js": "npm:@jsr/supabase__supabase-js@^2.46.1",
-    "@tanstack/react-query": "^5.51.23",
-    "@tanstack/react-router": "^1.48.4",
-    "caniuse-lite": "^1.0.30001715",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "drizzle-zod": "^0.5.1",
-    "effect": "^3.6.4",
-    "lucide-react": "^0.454.0",
-    "postgres": "^3.4.4",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-error-boundary": "^4.0.13",
-    "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7",
-    "type-fest": "^4.25.0",
-    "vite-tsconfig-paths": "^5.0.0",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@tanstack/router-devtools": "^1.48.4",
-    "@tanstack/router-plugin": "^1.48.3",
-    "@total-typescript/ts-reset": "^0.6.1",
-    "@total-typescript/tsconfig": "^1.0.4",
-    "@types/node": "^22.4.1",
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.40",
-    "tailwindcss": "^3.4.7",
-    "typescript": "^5.2.2",
-    "vite": "^5.4.1"
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
-    "esbuild": "^0.25.3"
-  },
-  "resolutions": {
-    "esbuild": "^0.25.3"
-  }
+	"name": "toma-to-do",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"packageManager": "npm@10.9.2",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build && npx @biomejs/biome check --write .",
+		"lint": "npx @biomejs/biome check --write .",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@radix-ui/react-slot": "^1.2.0",
+		"@tanstack/react-query": "^5.74.4",
+		"@tanstack/react-router": "^1.117.0",
+		"caniuse-lite": "^1.0.30001715",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"effect": "^3.14.13",
+		"lucide-react": "^0.503.0",
+		"postgres": "^3.4.5",
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
+		"react-error-boundary": "^5.0.0",
+		"tailwind-merge": "^3.2.0",
+		"tailwindcss-animate": "^1.0.7",
+		"type-fest": "^4.40.0",
+		"vite-tsconfig-paths": "^5.1.4",
+		"zod": "^3.24.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@tanstack/router-devtools": "^1.117.0",
+		"@tanstack/router-plugin": "^1.117.0",
+		"@total-typescript/ts-reset": "^0.6.1",
+		"@total-typescript/tsconfig": "^1.0.4",
+		"@types/node": "^22.14.1",
+		"@vitejs/plugin-react-swc": "^3.9.0",
+		"autoprefixer": "^10.4.21",
+		"tailwindcss": "^4.1.4",
+		"types-react": "^19.0.0-rc.1",
+		"types-react-dom": "^19.0.0-rc.1",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.2"
+	},
+	"overrides": {
+		"@types/react": "npm:types-react@rc",
+		"@types/react-dom": "npm:types-react-dom@rc",
+		"esbuild": "^0.25.3"
+	},
+	"resolutions": {
+		"esbuild": "^0.25.3"
+	}
 }
