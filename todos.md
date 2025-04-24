@@ -1,0 +1,13 @@
+## GOLDEN APPLE
+- [ ] Make it deploy
+- [ ] Scaffold basic ui with mock data
+- [ ] Actually setup a database
+- [ ] Attach database to UI
+- [ ] Add authentication (w/ Supabase)
+- [ ] Make timer functionality
+- [ ] Make Adding ToDos functionality
+- [ ] Error Management (w/ Sentry)
+- [ ] Routing
+- [ ] Delete button (w/ Server Actions)
+- [ ] Analytics
+- [ ] Ratelimiting (upstash)
