@@ -42,7 +42,7 @@
 		"types-react": "^19.0.0-rc.1",
 		"types-react-dom": "^19.0.0-rc.1",
 		"typescript": "^5.8.3",
-		"vite": "^6.3.2"
+		"vite": "^6.3.4"
 	},
 	"overrides": {
 		"@types/react": "npm:types-react@rc",
